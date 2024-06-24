@@ -2,12 +2,14 @@
     <div style=" background-color: rgb(14, 14, 83); color: white;" class="p-3 rounded">
         <h1 class="text-center">Login</h1>
         <div>
-            <form class="shadow p-3 rounded" style="width: 500px;">
-                <input type="text" class="form-control" placeholder="Email Id">
+            <form (ngSubmit)="login()" class="shadow p-3 rounded" style="width: 500px;">
+                <input #loginEmail="ngModel" type="text" class="form-control" placeholder="Email Id" [(ngModel)]="mailId" name="mail" required email>
+                <span *ngIf="loginEmail.invalid && loginEmail.touched" class="text-danger">Invalid input</span>
                 <br>
-                <input type="text" class="form-control my-2" placeholder="password">
+                <input #loginPassword="ngModel" type="text" class="form-control my-2" placeholder="password" [(ngModel)]="password" name="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{4,}$" >
+                <span *ngIf="loginPassword.invalid && loginPassword.touched" class="text-danger">Invalid input</span>
                 <br>
-                <button class="btn btn-danger w-100">Login</button>
+                <button [disabled]="loginEmail.invalid || loginPassword.invalid" class="btn btn-danger w-100" type="submit" >Login</button>
             </form>
         </div>
     </div>
