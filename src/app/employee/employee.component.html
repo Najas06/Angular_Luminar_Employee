@@ -43,11 +43,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>NAME</td>
-                                                <td>email</td>
-                                                <td><button class="btn btn-success">active</button></td>
+                                            <tr *ngFor="let employee of allEmployee" [hidden]="employee.id =='1'">
+                                                <td>{{employee.id}}</td>
+                                                <td>{{employee.name}}</td>
+                                                <td>{{employee.email}}</td>
+                                                <td><button [ngClass]="employee.status=='1'?'btn btn-success':'btn btn-warning'">{{employee.status == '1' ? 'Active':'Inactive'}}</button></td>
                                                 <td class="d-flex justify-content-center gap-4">
                                                     <a routerLink="/edit/1">
                                                         <button class="btn btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
@@ -55,7 +55,7 @@
                                                     <button class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                                                 </td>
                                             </tr>
-                                            <p class="text-danger">Employee does not Exist</p>
+                                            <p *ngIf="allEmployee.length == 0" class="text-danger">Employee does not Exist</p>
                                         </tbody>
                                     </table>
                                 </div>

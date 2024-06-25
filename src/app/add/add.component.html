@@ -7,15 +7,17 @@
     <div style="width: 100%;" class="p-3 d-flex flex-column align-items-center">
         <h1 class="text-center mt-4" style="color: tomato; font-family: Roboto Mono; font-weight: 600;">Add New User Details</h1>
         <div class="w-50 bg-dark p-5 d-flex flex-column gap-4 shadow rounded">
-            <input type="text" class="form-control" placeholder="UserID">
-            <span class="text-danger">Invalid Input</span>
-            <input type="text" class="form-control" placeholder="Username">
-            <span class="text-danger">Invalid Input</span>
-            <input type="email" class="form-control" placeholder="Email">
-            <span class="text-danger">Invalid Input</span>
+            <input #addId="ngModel" type="text" class="form-control" placeholder="UserID" name="empId" [(ngModel)]="employeeDetails.id" required pattern="^[0-9]*$">
+            <span *ngIf="addId.invalid && addId.touched" class="text-danger">Invalid Input</span>
+
+            <input  #addName="ngModel" type="text" class="form-control" placeholder="Username" name="empName" [(ngModel)]="employeeDetails.name" required pattern="^[a-zA-Z,]{3,}*$">
+            <span *ngIf="addName.invalid && addName.touched" class="text-danger">Invalid Input</span>
+
+            <input #addEmail="ngModel" type="email" class="form-control" placeholder="Email" name="empEmail" [(ngModel)]="employeeDetails.email" required >
+            <span *ngIf="addEmail.invalid && addEmail.touched" class="text-danger">Invalid Input</span>
             <div>
                 <label for="floatingSelect" class="text-light ms-2">Status</label>
-                <select class="form-select" aria-label="Default select example">
+                <select #addStatus="ngModel" class="form-select" aria-label="Default select example" name="empStatus" [(ngModel)]="employeeDetails.status" required>
                     <option selected></option>
                     <option value="1">Active</option>
                     <option value="2">Inactive</option>
@@ -23,8 +25,8 @@
                   </select>
             </div>
               <div class="d-flex justify-content-center gap-4">
-                  <button class="btn btn-warning">Cancel</button>
-                  <button class="btn btn-success">ADD</button>
+                  <button type="button" class="btn btn-warning" (click)="Cancel()">Cancel</button>
+                  <button  (click)="addUser()" class="btn btn-success">ADD</button>
               </div>
         </div>
         
