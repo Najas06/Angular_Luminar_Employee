@@ -102,11 +102,16 @@ export class HomeComponent implements OnInit {
       })
   }
 
+  status:boolean = true
   editStatus:boolean = true
   totalEmployee:number = 0
   adminDetail:any = {}
 
   profileImage:string = "https://cdn-icons-png.flaticon.com/512/3789/3789820.png"
+
+  changeStatus(){
+    this.status = !this.status
+  }
   getEditStatus(){
     this.editStatus = false
   }
