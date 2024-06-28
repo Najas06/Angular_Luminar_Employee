@@ -7,15 +7,15 @@
     <div style="width: 100%;" class="p-3 d-flex flex-column align-items-center">
         <h1 class="text-center mt-4" style="color: tomato; font-family: Roboto Mono; font-weight: 600;">Edit Employee Details</h1>
         <div class="w-50 bg-dark p-5 d-flex flex-column gap-4 shadow rounded">
-            <input type="text" class="form-control" placeholder="UserID">
-            <span class="text-danger">Invalid Input</span>
-            <input type="text" class="form-control" placeholder="Username">
-            <span class="text-danger">Invalid Input</span>
-            <input type="email" class="form-control" placeholder="Email">
-            <span class="text-danger">Invalid Input</span>
+            <input type="text" class="form-control" placeholder="UserID" [(ngModel)]="employee.id" name="empId" #EmpID="ngModel" readonly>
+            <span *ngIf="EmpID.invalid && EmpID.touched" class="text-danger">Invalid Input</span>
+            <input type="text" class="form-control" placeholder="Username" [(ngModel)]="employee.name" name="empName" #EmpName="ngModel">
+            <span *ngIf="EmpName.invalid && EmpName.touched" class="text-danger">Invalid Input</span>
+            <input type="email" class="form-control" placeholder="Email" [(ngModel)]="employee.email" name="empEmail" #EmpEmail="ngModel">
+            <span *ngIf="EmpEmail.invalid && EmpEmail.touched" class="text-danger">Invalid Input</span>
             <div>
                 <label for="floatingSelect" class="text-light ms-2">Status</label>
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" [(ngModel)]="employee.status" name="empStatus" #EmpStatus="ngModel">
                     <option selected></option>
                     <option value="1">Active</option>
                     <option value="2">Inactive</option>
@@ -23,8 +23,8 @@
                   </select>
             </div>
               <div class="d-flex justify-content-center gap-4">
-                  <button class="btn btn-warning">Cancel</button>
-                  <button class="btn btn-success">Update</button>
+                  <button class="btn btn-warning" (click)="cancel(employee.id)">Cancel</button>
+                  <button class="btn btn-success" (click)="editEmployee(employee.id)">Update</button>
               </div>
         </div>
         

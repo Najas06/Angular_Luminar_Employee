@@ -24,4 +24,23 @@ export class ApiService {
   getAllEmployeeAPI(){
     return this.http.get(`${this.serverURL}/employee`)
   }
+
+  deleteEmployeeAPI(id:string){
+    return this.http.delete(`${this.serverURL}/employee/${id}`)
+  }
+
+  // get a particular 
+  getAEmployee(id:any){
+    return this.http.get(`${this.serverURL}/employee/${id}`)
+  }
+
+  //api to update employee details
+  updateEmployee(id:any,body:any){
+    return this.http.put(`${this.serverURL}/employee/${id}`,body)
+  }
+
+  //api to update admin details
+  updateAdminDetailsAPI(body:any){
+    return this.http.put(`${this.serverURL}/employee/1`,body)
+  }
 }

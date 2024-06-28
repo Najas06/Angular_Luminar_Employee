@@ -26,31 +26,34 @@
             </div>
         </div>
         <div class="col-md-4 px-5">
-            <!-- <div class="mt-3 shadow d-flex justify-content-center align-items-center rounded flex-column" style="height: 350px;background-color: plum;">
-                <img src="https://cdn-icons-png.flaticon.com/512/3789/3789820.png" alt="" width="150px" height="150px" style="border-radius: 50%;">
-                <a class="mt-3 fs-5 text-decoration-none">Edit The Admin Details <i class="fa-solid fa-pen-nib"></i></a>
-            </div> -->
-            <div class="mt-3 shadow d-flex justify-content-center align-items-center rounded flex-column"
+            <div *ngIf="editStatus" class="mt-3 shadow d-flex justify-content-center align-items-center rounded flex-column" style="height: 350px;background-color: plum;">
+                <img [src]="profileImage" alt="" width="150px" height="150px" style="border-radius: 50%;">
+                <a (click)="getEditStatus()" class="mt-3 fs-5 text-decoration-none">Edit The Admin Details <i class="fa-solid fa-pen-nib"></i></a>
+            </div>
+            <div *ngIf="!editStatus" class="mt-3 shadow d-flex justify-content-center align-items-center rounded flex-column"
                 style="height: 350px;background-color: plum;">
                 <h5>Update Admin Details </h5>
-                <img src="https://cdn-icons-png.flaticon.com/512/3789/3789820.png" alt="" width="150px" height="130px"
+                <label>
+                    <input type="file" style="display: none;" (change)="getFile($event)">
+                    <img [src]="profileImage" alt="" width="150px" height="130px"
                     style="border-radius: 50%;">
+                </label>
                 <form class="w-75 mt-3">
                     <div class="mb-3">
-                        <input type="text" placeholder="Admin Name" class="form-control">
+                        <input type="text" placeholder="Admin Name" class="form-control" name="adminname" [(ngModel)]="adminDetail.name">
                     </div>
                     <div class="mb-3">
-                        <input type="text" placeholder="password" class="form-control">
+                        <input type="text" placeholder="password" class="form-control" name="adminPassword" [(ngModel)]="adminDetail.password">
                     </div>
                     <div class=" d-flex justify-content-center gap-3">
-                        <button class="btn btn-primary">Update</button>
-                        <button class="btn btn-danger">Cancel</button>
+                        <button class="btn btn-primary" (click)="updateAdmin()">Update</button>
+                        <button class="btn btn-danger" (click)="reset()">Cancel</button>
                     </div>
                 </form>
             </div>
             <div class="shadow rounded mt-4 d-flex align-items-center justify-content-center"
                 style="background-color: cadetblue; height: 200px;">
-                <h2 class="text-light"><i class="fa-solid fa-user"></i> Employee Count : 7</h2>
+                <h2 class="text-light"><i class="fa-solid fa-user"></i> Employee Count : {{totalEmployee}}</h2>
             </div>
         </div>
     </div>

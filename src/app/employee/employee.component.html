@@ -11,10 +11,10 @@
             <h1 style="font-weight: 600;">Employee List</h1>
             <a routerLink="/add" class="btn btn-outline-primary">Add <i class="fa-solid fa-user-plus "></i></a>
         </div>
-        <h4>6/04/2024 1:44 pm</h4>
+        <h4>{{adminLogin | date:"medium"}}</h4>
         <div>
             <div class="d-flex">
-                <input type="text" placeholder="Username" class="form-control w-25">
+                <input type="text" placeholder="Username" class="form-control w-25" name="skey" [(ngModel)]="searchKey">
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle ms-3" type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -22,11 +22,11 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                        <li><a class="dropdown-item" href="#">By ID</a></li>
-                        <li><a class="dropdown-item" href="#">By Name</a></li>
+                        <li><a class="dropdown-item" (click)="sortId()" >By ID</a></li>
+                        <li><a class="dropdown-item" (click)="sortName()">By Name</a></li>
                     </ul>
                 </div>
-                <button class="btn btn-success ms-auto ">Export</button>
+                <button class="btn btn-success ms-auto " (click)="generatePDF()">Export</button>
             </div>
             
                             <div class="row w-100">
@@ -43,21 +43,22 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let employee of allEmployee" [hidden]="employee.id =='1'">
+                                            <tr *ngFor="let employee of allEmployee | search:searchKey | paginate: { itemsPerPage: 4, currentPage: p} " [hidden]="employee.id =='1'">
                                                 <td>{{employee.id}}</td>
                                                 <td>{{employee.name}}</td>
                                                 <td>{{employee.email}}</td>
                                                 <td><button [ngClass]="employee.status=='1'?'btn btn-success':'btn btn-warning'">{{employee.status == '1' ? 'Active':'Inactive'}}</button></td>
                                                 <td class="d-flex justify-content-center gap-4">
-                                                    <a routerLink="/edit/1">
+                                                    <a routerLink="/edit/{{employee.id}}">
                                                         <button class="btn btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
                                                     </a>
-                                                    <button class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                                                    <button class="btn btn-outline-danger" (click)="removeEmployee(employee.id)"><i class="fa-solid fa-trash"></i></button>
                                                 </td>
                                             </tr>
-                                            <p *ngIf="allEmployee.length == 0" class="text-danger">Employee does not Exist</p>
+                                            <p *ngIf="(allEmployee | search:searchKey).length == 0" class="text-danger">Employee does not Exist</p>
                                         </tbody>
                                     </table>
+                                    <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
                                 </div>
                                 <div class="col-md-1"></div>
                             </div>
