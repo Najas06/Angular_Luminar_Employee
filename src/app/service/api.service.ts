@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,15 @@ export class ApiService {
 
   serverURL = `http://localhost:3000`
 
+  // 1) create object for behaviour subject
+  sharedata = new BehaviorSubject(false)
+
   constructor(private http:HttpClient) { }
+
+  // 2) function to update behavior subject
+  updateData(data:any){
+    this.sharedata.next(data)
+  }
 
   // api to login
   loginAPI () {

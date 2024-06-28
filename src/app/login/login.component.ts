@@ -33,6 +33,7 @@ export class LoginComponent {
             text:"Login Successfull",
             icon:"success"
            })
+           this.api.updateData(true)
             this.router.navigateByUrl('/dashboard')
           }
           else{
